@@ -1,0 +1,56 @@
+﻿<!DOCTYPE html>
+<html ng-app="bestelformulierApp">
+<head>
+    <title>Bestelformulier</title>
+	<meta charset="utf-8" />
+    <link href="default.css" rel="stylesheet" />
+    <script src="scripts/angular.js"></script>
+    <script src="Controllers/bestelFormulierController.js"></script>
+    <script src="Modules/customFilterModule.js"></script>
+    <script src="Modules/bestelFormulierModule.js"></script>
+</head>
+<body ng-controller="bestelFormulierController">
+    <div class="achtergrond"></div>
+<header>
+    <h2>Mithrandir's Music Store</h2><div class="mandje"></div>
+</header>
+<div class="topImage"></div>
+<nav>
+    <a class="menuItem gt480 {{GeselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in Producten|unique:'hoofdmenu'">{{item.hoofdmenu}}</a>
+    <a class="menuItem lt480 {{GeselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in Producten|unique:'hoofdmenu'">{{item.hoofdmenu.substr(0,3)}}</a>
+</nav>
+<section class="table">
+    <aside>
+        <a class="vMenuItem  {{GeselecteerdSubmenu==item.submenu ? 'sel' : 'unsel'}}" onclick="" ng-click="selecteerSubmenu(item.submenu);" ng-repeat="item in Producten|filter:{hoofdmenu:GeselecteerdHoofdmenu}|unique:'submenu'">{{item.submenu}}</a>
+    </aside>
+    <main>
+        <h2>Instrumenten</h2>
+        <div class="float" ng-click="this.className.add('naarMandje');" ng-repeat="item in Producten|filter:{hoofdmenu:GeselecteerdHoofdmenu}|filter:{submenu:GeselecteerdSubmenu}"><div class="instrumentnaam">{{item.naam}}</div><img class="instrument" src="Images/{{item.afbeelding}}" /><div class="instrumentnaam"><span>€ {{item.prijs | formatPrice}}<a href="" class="bestellen" ng-click="verhoog(item.naam)">bestel</a></span></div></div>
+    </main>
+</section>
+    <section class="mandje {{Mandje.length>0 ? '' : 'verborgen'}}">
+        <h1>{{ HelloWorld }}</h1>
+        <!--<select naam="producten" ng-model="GeselecteerdProduct" ng-options="item as item.naam + ' €' + item.prijs for item in Producten track by item.id" size ="10">
+        </select>
+        <input type="button" ng-click="voegToe()" value="Toevoegen" />-->
+        <table>
+            <thead>
+                <tr>
+                    <td>Instrument</td>
+                    <td>Prijs per stuk</td>
+                    <td>Aantal</td>
+                    <td>Totaal</td>
+                    <td>Actie</td>
+            </thead>
+            <tr ng-repeat="item in Mandje">
+                <td>{{item.naam}}</td>
+                <td>{{item.prijs | formatPrice}}</td>
+                <td>{{item.aantal}}</td>
+                <td>€ {{item.aantal * item.prijs | formatPrice}}</td>
+
+                        <td><input type="button" value=" + " ng-click="verhoog(item.naam)"/><input type="button" value=" - " ng-click="verwijder(item.naam)" /></td>
+            </tr>
+        </table>
+    </section>
+</body>
+</html>
