@@ -134,6 +134,9 @@ publish/
 *.pubxml
 *.publishproj
 
+#Nuget 
+packages/
+
 # NuGet Packages
 *.nupkg
 # The packages folder can be ignored because of Package Restore

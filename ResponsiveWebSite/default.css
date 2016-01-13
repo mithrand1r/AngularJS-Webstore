@@ -91,7 +91,6 @@ div.achtergrond{
     width:100%;
     background-image:url("Images/Musical-Instrument-Wallpapers-4.jpg");
     background-position:top;
-    background-attachment:fixed;
     background-size:cover;
     z-index:98;
     margin:0px;

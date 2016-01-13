@@ -1,3 +1,3 @@
-﻿var app;
-app = angular.module('bestelformulierApp', ['customFilterModule']);
-app.controller('bestelFormulierController', ['$scope', window.qnh.controllers.bestelformulierController]);
+var app = angular.module('bestelformulierApp', ['customFilterModule']);
+app.controller('bestelFormulierController', [qnh.controllers.bestelformulierController]);
+//# sourceMappingURL=bestelFormulierModule.js.map
