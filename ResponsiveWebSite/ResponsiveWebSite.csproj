@@ -85,6 +85,8 @@
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="partial-views\step02.html" />
+    <Content Include="partial-views\step01.html" />
     <Content Include="scripts\angular-animate.js" />
     <Content Include="scripts\angular-animate.min.js" />
     <Content Include="scripts\angular-aria.js" />
@@ -896,6 +898,7 @@
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Controllers\bestelFormulierController.ts" />
+    <TypeScriptCompile Include="Controllers\navigationController.ts" />
     <TypeScriptCompile Include="Modules\bestelFormulierModule.ts" />
     <TypeScriptCompile Include="scripts\test.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-animate.d.ts" />

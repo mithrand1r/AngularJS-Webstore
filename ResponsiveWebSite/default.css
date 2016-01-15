@@ -114,7 +114,7 @@ section.mandje {
     z-index:200;
     background-color:white;
 }
-section.verborgen {
+*.verborgen {
     display:none;
 }
 table.updown{

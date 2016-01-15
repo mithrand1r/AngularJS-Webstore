@@ -5,6 +5,8 @@
 	<meta charset="utf-8" />
     <link href="default.css" rel="stylesheet" />
     <script src="scripts/angular.js"></script>
+    <script src="scripts/angular-route.js"></script>
+    <script src="Controllers/navigationController.js"></script>
     <script src="Controllers/bestelFormulierController.js"></script>
     <script src="Modules/customFilterModule.js"></script>
     <script src="Modules/bestelFormulierModule.js"></script>
@@ -12,7 +14,7 @@
 <body ng-controller="BestelFormulierController as ctrl">
     <div class="achtergrond"></div>
 <header>
-    <h2>Mithrandir's Music Store</h2><div class="mandje"></div>
+    <h2>Mithrandir's Music Store</h2>
 </header>
 <nav>
     <a class="menuItem gt480 {{ctrl.geselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.producten|unique:'hoofdmenu'">{{item.hoofdmenu}}</a>
@@ -27,25 +29,30 @@
         <div class="float" ng-click="this.className.add('naarmandje');" ng-repeat="item in ctrl.producten|filter:{hoofdmenu:ctrl.geselecteerdHoofdmenu}|filter:{submenu:ctrl.geselecteerdSubmenu}"><div class="instrumentnaam">{{item.naam}}</div><img class="instrument" src="Images/{{item.afbeelding}}" /><div class="instrumentnaam"><span>€ {{item.prijs | formatPrice}}<a href="" class="bestellen" ng-click="ctrl.verhoog(item.naam)">bestel</a></span></div></div>
     </main>
 </section>
-    <section class="mandje {{ctrl.mandje.length>0 ? '' : 'verborgen'}}">
-        <h1>{{ctrl.titel}}</h1>
-        <table>
-            <thead>
-                <tr>
-                    <td>Instrument</td>
-                    <td>Prijs per stuk</td>
-                    <td>Aantal</td>
-                    <td>Totaal</td>
-                    <td>Actie</td>
-            </thead>
-            <tr ng-repeat="item in ctrl.mandje">
-                <td>{{item.naam}}</td>
-                <td>{{item.prijs | formatPrice}}</td> <!-- je kan ook met currency werken. is ingebouwd: {{item.prijs | currency : "€" : 2}}-->
-                <td>{{item.aantal}}</td>
-                <td>{{item.aantal * item.prijs | formatPrice}}</td>
-                <td><input type="button" value=" + " ng-click="ctrl.verhoog(item.naam)"/><input type="button" value=" - " ng-click="ctrl.verwijder(item.naam)" /></td>
-            </tr>
-        </table>
-    </section>
+<section class="mandje {{ctrl.mandje.length>0 ? '' : 'verborgen'}}">
+    <h1>{{ctrl.titel}}</h1>
+    <table>
+        <thead>
+        <tr>
+        <td>Instrument</td>
+        <td>Prijs per stuk</td>
+        <td>Aantal</td>
+        <td>Totaal</td>
+        <td>Actie</td>
+        </thead>
+        <tr ng-repeat="item in ctrl.mandje">
+            <td>{{item.naam}}</td>
+            <td>{{item.prijs | formatPrice}}</td> <!-- je kan ook met currency werken. is ingebouwd: {{item.prijs | currency : "€" : 2}}-->
+            <td>{{item.aantal}}</td>
+            <td>{{item.aantal * item.prijs | formatPrice}}</td>
+            <td><input type="button" value=" + " ng-click="ctrl.verhoog(item.naam)"/><input type="button" value=" - " ng-click="ctrl.verwijder(item.naam)"/></td>
+        </tr>
+    </table>
+    <div ng-controller="NavigationController as ctrl">
+        <button id="btnPrev" ng-disabled="ctrl.btnPrevDisabled()" ng-click="ctrl.btnPrevClick()">Prev</button>
+        <button id="btnNext" ng-disabled="ctrl.btnNextDisabled()" ng-click="ctrl.btnNextClick()">Next</button>
+        <div ng-view></div>
+    </div>
+</section>
 </body>
 </html>
