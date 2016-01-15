@@ -1,12 +1,11 @@
-﻿var app;
-app = angular.module('customFilterModule', []);
+﻿var app = angular.module('customFilterModule', []);
 app.filter('unique', function () {
     return function (items, filterOn) {
         if (filterOn === false) {
             return items;
         }
         if ((filterOn || angular.isUndefined(filterOn)) && angular.isArray(items)) {
-            var hashCheck = {}, newItems = [];
+            var newItems = [];
 
             var extractValueToCompare = function (item) {
                 if (angular.isObject(item) && angular.isString(filterOn)) {
@@ -17,7 +16,7 @@ app.filter('unique', function () {
             };
 
             angular.forEach(items, function (item) {
-                var valueToCheck, isDuplicate = false;
+                var isDuplicate = false;
 
                 for (var i = 0; i < newItems.length; i++) {
                     if (angular.equals(extractValueToCompare(newItems[i]), extractValueToCompare(item))) {
@@ -35,18 +34,18 @@ app.filter('unique', function () {
         return items;
     };
 });
-app.filter("displayprice", function () {
-      return function (input, comma) {
-          if (isNaN(parseFloat(input))) return "";
-          comma = (typeof comma === 'undefined') ? "." : ",";
-          input = Math.round(parseFloat(input) * 100) / 100;
-          var d = input.toString().split(".");
-          if (d.length === 1) return input + comma + "-";
-          if (d[1].length < 2) return input + "0";
-          return input;
-      }
-  })
-  .filter("formatPrice", function () {
+app.filter("displayPrice", function() {
+    return function(input, comma) {
+        if (isNaN(parseFloat(input))) return "";
+        comma = (typeof comma === 'undefined') ? "." : ",";
+        input = Math.round(parseFloat(input) * 100) / 100;
+        var d = input.toString().split(".");
+        if (d.length === 1) return input + comma + "-";
+        if (d[1].length < 2) return input + "0";
+        return input;
+    }
+});
+app.filter("formatPrice", function () {
       return function (price, digits, thoSeperator, decSeperator, bdisplayprice) {
           var i;
           digits = (typeof digits === "undefined") ? 2 : digits;

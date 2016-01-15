@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html ng-app="bestelformulierApp">
+<html ng-app="BestelformulierApp">
 <head>
     <title>Bestelformulier</title>
 	<meta charset="utf-8" />
@@ -9,30 +9,26 @@
     <script src="Modules/customFilterModule.js"></script>
     <script src="Modules/bestelFormulierModule.js"></script>
 </head>
-<body ng-controller="bestelFormulierController as ctrl">
+<body ng-controller="BestelFormulierController as ctrl">
     <div class="achtergrond"></div>
 <header>
     <h2>Mithrandir's Music Store</h2><div class="mandje"></div>
 </header>
-<!--<div class="topImage"></div>-->
 <nav>
-    <a class="menuItem gt480 {{ctrl.GeselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.Producten|unique:'hoofdmenu'">{{item.hoofdmenu}}</a>
-    <a class="menuItem lt480 {{ctrl.GeselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.Producten|unique:'hoofdmenu'">{{item.hoofdmenu.substr(0,3)}}</a>
+    <a class="menuItem gt480 {{ctrl.geselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.producten|unique:'hoofdmenu'">{{item.hoofdmenu}}</a>
+    <a class="menuItem lt480 {{ctrl.geselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.producten|unique:'hoofdmenu'">{{item.hoofdmenu.substr(0,3)}}</a>
 </nav>
 <section class="table">
     <aside>
-        <a class="vMenuItem  {{ctrl.GeselecteerdSubmenu==item.submenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerSubmenu(item.submenu);" ng-repeat="item in ctrl.Producten|filter:{hoofdmenu:ctrl.GeselecteerdHoofdmenu}|unique:'submenu'">{{item.submenu}}</a>
+        <a class="vMenuItem  {{ctrl.GeselecteerdSubmenu==item.submenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerSubmenu(item.submenu);" ng-repeat="item in ctrl.producten|filter:{hoofdmenu:ctrl.geselecteerdHoofdmenu}|unique:'submenu'">{{item.submenu}}</a>
     </aside>
     <main>
         <h2>Instrumenten</h2>
-        <div class="float" ng-click="this.className.add('naarMandje');" ng-repeat="item in ctrl.Producten|filter:{hoofdmenu:ctrl.GeselecteerdHoofdmenu}|filter:{submenu:ctrl.GeselecteerdSubmenu}"><div class="instrumentnaam">{{item.naam}}</div><img class="instrument" src="Images/{{item.afbeelding}}" /><div class="instrumentnaam"><span>€ {{item.prijs | formatPrice}}<a href="" class="bestellen" ng-click="ctrl.verhoog(item.naam)">bestel</a></span></div></div>
+        <div class="float" ng-click="this.className.add('naarmandje');" ng-repeat="item in ctrl.producten|filter:{hoofdmenu:ctrl.geselecteerdHoofdmenu}|filter:{submenu:ctrl.geselecteerdSubmenu}"><div class="instrumentnaam">{{item.naam}}</div><img class="instrument" src="Images/{{item.afbeelding}}" /><div class="instrumentnaam"><span>€ {{item.prijs | formatPrice}}<a href="" class="bestellen" ng-click="ctrl.verhoog(item.naam)">bestel</a></span></div></div>
     </main>
 </section>
-    <section class="mandje {{ctrl.Mandje.length>0 ? '' : 'verborgen'}}">
-        <h1>{{ ctrl.HelloWorld }}</h1>
-        <!--<select naam="producten" ng-model="GeselecteerdProduct" ng-options="item as item.naam + ' €' + item.prijs for item in Producten track by item.id" size ="10">
-        </select>
-        <input type="button" ng-click="voegToe()" value="Toevoegen" />-->
+    <section class="mandje {{ctrl.mandje.length>0 ? '' : 'verborgen'}}">
+        <h1>{{ctrl.titel}}</h1>
         <table>
             <thead>
                 <tr>
@@ -42,13 +38,12 @@
                     <td>Totaal</td>
                     <td>Actie</td>
             </thead>
-            <tr ng-repeat="item in ctrl.Mandje">
+            <tr ng-repeat="item in ctrl.mandje">
                 <td>{{item.naam}}</td>
-                <td>{{item.prijs | formatPrice}}</td>
+                <td>{{item.prijs | formatPrice}}</td> <!-- je kan ook met currency werken. is ingebouwd: {{item.prijs | currency : "€" : 2}}-->
                 <td>{{item.aantal}}</td>
-                <td>€ {{item.aantal * item.prijs | formatPrice}}</td>
-
-                        <td><input type="button" value=" + " ng-click="ctrl.verhoog(item.naam)"/><input type="button" value=" - " ng-click="ctrl.verwijder(item.naam)" /></td>
+                <td>{{item.aantal * item.prijs | formatPrice}}</td>
+                <td><input type="button" value=" + " ng-click="ctrl.verhoog(item.naam)"/><input type="button" value=" - " ng-click="ctrl.verwijder(item.naam)" /></td>
             </tr>
         </table>
     </section>

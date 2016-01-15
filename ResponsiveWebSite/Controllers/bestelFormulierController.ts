@@ -1,9 +1,9 @@
-﻿module qnh.controllers {
-    export class bestelformulierController {
+﻿module qnh.Controllers {
+    export class BestelformulierController {
 
         //velden
-        HelloWorld: string = "Bestelformulier";
-        Producten = [
+        titel: string = "Bestelformulier";
+        producten = [
             { id: 1, naam: "Gretsch G6120 Eddie Cochran", hoofdmenu: "Gitaren", submenu: "Electrisch", prijs: 3555, afbeelding: "gretsch_g6120_eddie_cochran2.jpg" },
             { id: 2, naam: "ESP Viper Black", hoofdmenu: "Gitaren", submenu: "Electrisch", prijs: 1522, afbeelding: "esp_viper_black2.jpg" },
             { id: 3, naam: "PRS SE Custom 22 VSB", hoofdmenu: "Gitaren", submenu: "Electrisch", prijs: 985, afbeelding: "prs_se_custom_22_vsb2.jpg" },
@@ -16,53 +16,53 @@
             { id: 9, naam: "Viscount Unico 500 Konkav", hoofdmenu: "Keyboards", submenu: "Orgels", prijs: 30111, afbeelding: "viscount_unico_500_konkav.jpg" }
         ];
         hoofdmenu = [];
-        GeselecteerdHoofdmenu;
-        GeselecteerdSubmenu;
-        GeselecteerdProduct;
-        Mandje = [];
+        geselecteerdHoofdmenu;
+        geselecteerdSubmenu;
+        geselecteerdProduct;
+        mandje = [];
 
         selecteerHoofdmenu(menu) {
-            this.GeselecteerdHoofdmenu = menu;
-            this.GeselecteerdSubmenu = '';
+            this.geselecteerdHoofdmenu = menu;
+            this.geselecteerdSubmenu = "";
         }
 
         selecteerSubmenu(menu) {
-            this.GeselecteerdSubmenu = menu;
+            this.geselecteerdSubmenu = menu;
         }
 
         verwijder(productnaam) {
-            for (var i = 0; i < this.Mandje.length; i++) {
-                if (this.Mandje[i].naam == productnaam) {
-                    if (this.Mandje[i].aantal == 1) {
-                        this.Mandje.splice(i, 1);
+            for (var i = 0; i < this.mandje.length; i++) {
+                if (this.mandje[i].naam === productnaam) {
+                    if (this.mandje[i].aantal === 1) {
+                        this.mandje.splice(i, 1);
                     } else {
-                        this.Mandje[i].aantal -= 1;
+                        this.mandje[i].aantal -= 1;
                     }
                 }
             }
         }
         voegToe() {
-            if (this.GeselecteerdProduct.naam.length > 0) {
-                for (var i = 0; i < this.Mandje.length; i++) {
-                    if (this.Mandje[i].naam == this.GeselecteerdProduct.naam) {
-                        this.Mandje[i].aantal += 1;
+            if (this.geselecteerdProduct.naam.length > 0) {
+                for (var i = 0; i < this.mandje.length; i++) {
+                    if (this.mandje[i].naam === this.geselecteerdProduct.naam) {
+                        this.mandje[i].aantal += 1;
                         return;
                     }
                 }
                 //we komen hier alleen als het geselecteerde product nog niet in het mandje zit
-                this.Mandje.push({ id: this.GeselecteerdProduct.id, naam: this.GeselecteerdProduct.naam, prijs: this.GeselecteerdProduct.prijs, aantal: 1 });
+                this.mandje.push({ id: this.geselecteerdProduct.id, naam: this.geselecteerdProduct.naam, prijs: this.geselecteerdProduct.prijs, aantal: 1 });
             }
         }
         verhoog(productNaam) {
-            for (var i = 0; i < this.Mandje.length; i++) {
-                if (this.Mandje[i].naam == productNaam) {
-                    this.Mandje[i].aantal += 1;
+            for (var i = 0; i < this.mandje.length; i++) {
+                if (this.mandje[i].naam === productNaam) {
+                    this.mandje[i].aantal += 1;
                     return;
                 }
             }
-            for (var j = 0; j < this.Producten.length; j++) {
-                if (this.Producten[j].naam == productNaam) {
-                    this.Mandje.push({ id: this.Producten[j].id, naam: this.Producten[j].naam, prijs: this.Producten[j].prijs, aantal: 1 });
+            for (var j = 0; j < this.producten.length; j++) {
+                if (this.producten[j].naam === productNaam) {
+                    this.mandje.push({ id: this.producten[j].id, naam: this.producten[j].naam, prijs: this.producten[j].prijs, aantal: 1 });
                     //$apply();
                     return;
                 }
