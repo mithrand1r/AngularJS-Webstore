@@ -1,6 +1,7 @@
 ﻿var app = angular.module('BestelformulierApp', ['customFilterModule','ngRoute']);
 app.controller('BestelFormulierController', [qnh.Controllers.BestelformulierController]);
-app.controller('NavigationController', ['$location',qnh.Controllers.NavigationController]);
+app.controller('NavigationController', ['$location', qnh.Controllers.NavigationController]);
+app.directive('viewMandje', qnh.Directives.ViewMandje.factory);
 app.config([
     '$routeProvider', function ($routeProvider) {
 

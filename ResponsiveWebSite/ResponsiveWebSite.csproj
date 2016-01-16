@@ -899,6 +899,7 @@
   <ItemGroup>
     <TypeScriptCompile Include="Controllers\bestelFormulierController.ts" />
     <TypeScriptCompile Include="Controllers\navigationController.ts" />
+    <TypeScriptCompile Include="Directives\mandjeDirective.ts" />
     <TypeScriptCompile Include="Modules\bestelFormulierModule.ts" />
     <TypeScriptCompile Include="scripts\test.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-animate.d.ts" />

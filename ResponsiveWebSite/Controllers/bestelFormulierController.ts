@@ -30,7 +30,7 @@
             this.geselecteerdSubmenu = menu;
         }
 
-        verwijder(productnaam) {
+        verlaag(productnaam:string) {
             for (var i = 0; i < this.mandje.length; i++) {
                 if (this.mandje[i].naam === productnaam) {
                     if (this.mandje[i].aantal === 1) {
@@ -41,27 +41,15 @@
                 }
             }
         }
-        voegToe() {
-            if (this.geselecteerdProduct.naam.length > 0) {
-                for (var i = 0; i < this.mandje.length; i++) {
-                    if (this.mandje[i].naam === this.geselecteerdProduct.naam) {
-                        this.mandje[i].aantal += 1;
-                        return;
-                    }
-                }
-                //we komen hier alleen als het geselecteerde product nog niet in het mandje zit
-                this.mandje.push({ id: this.geselecteerdProduct.id, naam: this.geselecteerdProduct.naam, prijs: this.geselecteerdProduct.prijs, aantal: 1 });
-            }
-        }
-        verhoog(productNaam) {
+        verhoog(productnaam:string) {
             for (var i = 0; i < this.mandje.length; i++) {
-                if (this.mandje[i].naam === productNaam) {
+                if (this.mandje[i].naam === productnaam) {
                     this.mandje[i].aantal += 1;
                     return;
                 }
             }
             for (var j = 0; j < this.producten.length; j++) {
-                if (this.producten[j].naam === productNaam) {
+                if (this.producten[j].naam === productnaam) {
                     this.mandje.push({ id: this.producten[j].id, naam: this.producten[j].naam, prijs: this.producten[j].prijs, aantal: 1 });
                     //$apply();
                     return;

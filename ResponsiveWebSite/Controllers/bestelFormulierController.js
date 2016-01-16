@@ -28,7 +28,7 @@ var qnh;
             BestelformulierController.prototype.selecteerSubmenu = function (menu) {
                 this.geselecteerdSubmenu = menu;
             };
-            BestelformulierController.prototype.verwijder = function (productnaam) {
+            BestelformulierController.prototype.verlaag = function (productnaam) {
                 for (var i = 0; i < this.mandje.length; i++) {
                     if (this.mandje[i].naam === productnaam) {
                         if (this.mandje[i].aantal === 1) {
@@ -40,27 +40,15 @@ var qnh;
                     }
                 }
             };
-            BestelformulierController.prototype.voegToe = function () {
-                if (this.geselecteerdProduct.naam.length > 0) {
-                    for (var i = 0; i < this.mandje.length; i++) {
-                        if (this.mandje[i].naam === this.geselecteerdProduct.naam) {
-                            this.mandje[i].aantal += 1;
-                            return;
-                        }
-                    }
-                    //we komen hier alleen als het geselecteerde product nog niet in het mandje zit
-                    this.mandje.push({ id: this.geselecteerdProduct.id, naam: this.geselecteerdProduct.naam, prijs: this.geselecteerdProduct.prijs, aantal: 1 });
-                }
-            };
-            BestelformulierController.prototype.verhoog = function (productNaam) {
+            BestelformulierController.prototype.verhoog = function (productnaam) {
                 for (var i = 0; i < this.mandje.length; i++) {
-                    if (this.mandje[i].naam === productNaam) {
+                    if (this.mandje[i].naam === productnaam) {
                         this.mandje[i].aantal += 1;
                         return;
                     }
                 }
                 for (var j = 0; j < this.producten.length; j++) {
-                    if (this.producten[j].naam === productNaam) {
+                    if (this.producten[j].naam === productnaam) {
                         this.mandje.push({ id: this.producten[j].id, naam: this.producten[j].naam, prijs: this.producten[j].prijs, aantal: 1 });
                         //$apply();
                         return;
