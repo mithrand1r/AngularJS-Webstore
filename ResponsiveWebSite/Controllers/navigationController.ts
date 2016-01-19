@@ -1,32 +1,28 @@
 ﻿module qnh.Controllers {
     export class NavigationController {
-        private static pos: number = 0;
         public pages: string[] = ['/step01', '/step02'];
-        private position:number;
-        constructor(private $location: angular.ILocationService) {
-            this.position = NavigationController.pos;
+        constructor(public navigationService: qnh.Services.NavigationService, private $location: angular.ILocationService) {
         }
 
         btnNextClick() {
-            NavigationController.pos++;
+            this.navigationService.position++;
             this.relocate();
         }
 
         btnPrevClick() {
-            NavigationController.pos--;
+            this.navigationService.position--;
             this.relocate();
         }
 
         private relocate() {
-            this.position = NavigationController.pos;
-            this.$location.path(this.pages[this.position]);
+            this.$location.path(this.pages[this.navigationService.position]);
         }
 
         btnNextDisabled() {
-            return this.position > this.pages.length - 2;
+            return this.navigationService.position > this.pages.length - 2;
         }
         btnPrevDisabled() {
-            return this.position < 1;
+            return this.navigationService.position < 1;
         }
     }
 }

@@ -1,1 +1,10 @@
-﻿<div>Step02</div>
+﻿<nav ng-controller="NavigationController as ctrl">
+    <a class="menuItem gt480" onclick="" ng-click="ctrl.btnPrevClick()">Terug naar winkel</a>
+    <a class="menuItem lt480" onclick="" ng-click="ctrl.btnPrevClick()">Trug</a>
+</nav>
+<section class="table">
+    <main>
+        <h2>Uw bestelling</h2>
+        <view-mandje mandje="ctrl.mandjeService.mandje" totaal="ctrl.mandjeService.totaalBedrag" afbeelding="true" verhoog="ctrl.verhoog(productnaam)" verlaag="ctrl.verlaag(productnaam)"></view-mandje>
+    </main>
+</section>

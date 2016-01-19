@@ -2,10 +2,15 @@
 <html ng-app="BestelformulierApp">
 <head>
     <title>Bestelformulier</title>
-	<meta charset="utf-8" />
+    <meta charset="utf-8"/>
+    <base href="/"> <!--stap 2 in configuratie van #-loze URLS-->
+
+<!--    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">-->
     <link href="default.css" rel="stylesheet" />
     <script src="scripts/angular.js"></script>
     <script src="scripts/angular-route.js"></script>
+    <script src="Services/navigationService.js"></script>
+    <script src="Services/mandjeService.js"></script>
     <script src="Directives/mandjeDirective.js"></script>
     <script src="Controllers/navigationController.js"></script>
     <script src="Controllers/bestelFormulierController.js"></script>
@@ -17,27 +22,15 @@
 <header>
     <h2>Mithrandir's Music Store</h2>
 </header>
-<nav>
-    <a class="menuItem gt480 {{ctrl.geselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.producten|unique:'hoofdmenu'">{{item.hoofdmenu}}</a>
-    <a class="menuItem lt480 {{ctrl.geselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.producten|unique:'hoofdmenu'">{{item.hoofdmenu.substr(0,3)}}</a>
-</nav>
-<section class="table">
-    <aside>
-        <a class="vMenuItem  {{ctrl.GeselecteerdSubmenu==item.submenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerSubmenu(item.submenu);" ng-repeat="item in ctrl.producten|filter:{hoofdmenu:ctrl.geselecteerdHoofdmenu}|unique:'submenu'">{{item.submenu}}</a>
-    </aside>
-    <main>
-        <h2>Instrumenten</h2>
-        <div class="float" ng-click="this.className.add('naarmandje');" ng-repeat="item in ctrl.producten|filter:{hoofdmenu:ctrl.geselecteerdHoofdmenu}|filter:{submenu:ctrl.geselecteerdSubmenu}"><div class="instrumentnaam">{{item.naam}}</div><img class="instrument" src="Images/{{item.afbeelding}}" /><div class="instrumentnaam"><span>€ {{item.prijs | formatPrice}}<a href="" class="bestellen" ng-click="ctrl.verhoog(item.naam)">bestel</a></span></div></div>
-    </main>
-</section>
-<section class="mandje {{ctrl.mandje.length>0 ? '' : 'verborgen'}}">
-    <h1>{{ctrl.titel}}</h1>
-    <view-mandje mandje="ctrl.mandje" verhoog="ctrl.verhoog(productnaam)" verlaag="ctrl.verlaag(productnaam)"></view-mandje>
-    <div ng-controller="NavigationController as ctrl">
-        <button id="btnPrev" ng-disabled="ctrl.btnPrevDisabled()" ng-click="ctrl.btnPrevClick()">Prev</button>
-        <button id="btnNext" ng-disabled="ctrl.btnNextDisabled()" ng-click="ctrl.btnNextClick()">Next</button>
-        <div ng-view></div>
-    </div>
+    <div ng-view class="top"></div>
+ <section class="mandje {{ctrl.mandjeService.mandje.length>0 && ctrl.$location.path()!='/step02' ? '' : 'verborgen'}}">
+     <h1>{{ctrl.titel}}</h1>
+     <h2>{{ctrl.totaalBedrag}}</h2>
+    <view-mandje mandje="ctrl.mandjeService.mandje" totaal="ctrl.mandjeService.totaalBedrag" verhoog="ctrl.verhoog(productnaam)" verlaag="ctrl.verlaag(productnaam)"></view-mandje>
+     <div ng-controller="NavigationController as ctrl">
+         <!--<a href="" class="bestellen" ng-disabled="ctrl.btnPrevDisabled()" ng-click="ctrl.btnPrevClick()">Terug naar winkel</a>-->
+         <a href="" class="bestellen" ng-disabled="ctrl.btnNextDisabled()" ng-click="ctrl.btnNextClick()">Bestellen</a>
+     </div>
 </section>
 </body>
 </html>

@@ -5,6 +5,13 @@
     border:0;
     transition: all linear 200ms;
 }
+div.top {
+    z-index: 1000;
+    height: 100%;
+    width:100%;
+    margin: 0;
+    padding: 0;
+}
 h2{
     font-size:12pt;
 }
@@ -110,20 +117,30 @@ section.mandje {
     position:fixed;
     top:0px;
     right:20px;
-    width:400px;
+    width:460px;
     z-index:200;
-    background-color:white;
+    background-color: cornsilk;
 }
 *.verborgen {
     display:none;
 }
+/*Table-gerelateerd*/
 table.updown{
     margin:0px;
     padding:0px;
     font-size:0px;
     border-width:0px;
+}
+th {
+    font-style: oblique;
+    text-align: left;
 
 }
+tr.topborder {
+    padding-top: 1px;
+    border-top:  1pt solid black;
+}
+
 aside {
     border-radius:12px;
     position:relative;

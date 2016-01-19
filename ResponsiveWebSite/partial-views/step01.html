@@ -1,1 +1,13 @@
-﻿<div>Step01</div>
+﻿<nav>
+    <a class="menuItem gt480 {{ctrl.geselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.producten|unique:'hoofdmenu'">{{item.hoofdmenu}}</a>
+    <a class="menuItem lt480 {{ctrl.geselecteerdHoofdmenu==item.hoofdmenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerHoofdmenu(item.hoofdmenu);" ng-repeat="item in ctrl.producten|unique:'hoofdmenu'">{{item.hoofdmenu.substr(0,3)}}</a>
+</nav>
+<section class="table">
+    <aside>
+        <a class="vMenuItem  {{ctrl.GeselecteerdSubmenu==item.submenu ? 'sel' : 'unsel'}}" onclick="" ng-click="ctrl.selecteerSubmenu(item.submenu);" ng-repeat="item in ctrl.producten|filter:{hoofdmenu:ctrl.geselecteerdHoofdmenu}|unique:'submenu'">{{item.submenu}}</a>
+    </aside>
+    <main>
+        <h2>Instrumenten</h2>
+        <div class="float" ng-click="this.className.add('naarmandje');" ng-repeat="item in ctrl.producten|filter:{hoofdmenu:ctrl.geselecteerdHoofdmenu}|filter:{submenu:ctrl.geselecteerdSubmenu}"><div class="instrumentnaam">{{item.naam}}</div><img class="instrument" src="Images/{{item.afbeelding}}" /><div class="instrumentnaam"><span>€ {{item.prijs | formatPrice}}<a href="" class="bestellen" ng-click="ctrl.verhoog(item.naam)">bestel</a></span></div></div>
+    </main>
+</section>

@@ -1,6 +1,8 @@
 ﻿module qnh.Controllers {
     export class BestelformulierController {
-
+        constructor(public mandjeService: qnh.Services.MandjeService, public $location) {
+            
+        }
         //velden
         titel: string = "Bestelformulier";
         producten = [
@@ -15,11 +17,9 @@
             { id: 8, naam: "Yamaha b2 SNC", hoofdmenu: "Keyboards", submenu: "Piano's", prijs: 4390, afbeelding: "yamaha_b2_snc.jpg" },
             { id: 9, naam: "Viscount Unico 500 Konkav", hoofdmenu: "Keyboards", submenu: "Orgels", prijs: 30111, afbeelding: "viscount_unico_500_konkav.jpg" }
         ];
-        hoofdmenu = [];
-        geselecteerdHoofdmenu;
-        geselecteerdSubmenu;
-        geselecteerdProduct;
-        mandje = [];
+        hoofdmenu:any[] = [];
+        geselecteerdHoofdmenu:string;
+        geselecteerdSubmenu:string;
 
         selecteerHoofdmenu(menu) {
             this.geselecteerdHoofdmenu = menu;
@@ -31,30 +31,37 @@
         }
 
         verlaag(productnaam:string) {
-            for (var i = 0; i < this.mandje.length; i++) {
-                if (this.mandje[i].naam === productnaam) {
-                    if (this.mandje[i].aantal === 1) {
-                        this.mandje.splice(i, 1);
+            for (var i = 0; i < this.mandjeService.mandje.length; i++) {
+                if (this.mandjeService.mandje[i].naam === productnaam) {
+                    if (this.mandjeService.mandje[i].aantal === 1) {
+                        this.mandjeService.mandje.splice(i, 1);
                     } else {
-                        this.mandje[i].aantal -= 1;
+                        this.mandjeService.mandje[i].aantal -= 1;
                     }
                 }
             }
+            this.mandjeService.updateTotaal();
         }
-        verhoog(productnaam:string) {
-            for (var i = 0; i < this.mandje.length; i++) {
-                if (this.mandje[i].naam === productnaam) {
-                    this.mandje[i].aantal += 1;
-                    return;
+
+        verhoog(productnaam: string) {
+            var exists: boolean = false;
+            for (var i = 0; i < this.mandjeService.mandje.length; i++) {
+                if (this.mandjeService.mandje[i].naam === productnaam) {
+                    this.mandjeService.mandje[i].aantal += 1;
+                    exists = true;
+                    break;
                 }
             }
-            for (var j = 0; j < this.producten.length; j++) {
-                if (this.producten[j].naam === productnaam) {
-                    this.mandje.push({ id: this.producten[j].id, naam: this.producten[j].naam, prijs: this.producten[j].prijs, aantal: 1 });
-                    //$apply();
-                    return;
+            if (!exists) {
+                for (var j = 0; j < this.producten.length; j++) {
+                    if (this.producten[j].naam === productnaam) {
+                        this.mandjeService.mandje.push({ id: this.producten[j].id, naam: this.producten[j].naam, prijs: this.producten[j].prijs, afbeelding: this.producten[j].afbeelding, aantal: 1 });
+                        break;
+                    }
                 }
             }
+
+            this.mandjeService.updateTotaal();
         }
     }
 }

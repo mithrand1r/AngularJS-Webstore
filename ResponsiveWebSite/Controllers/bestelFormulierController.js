@@ -3,7 +3,9 @@ var qnh;
     var Controllers;
     (function (Controllers) {
         var BestelformulierController = (function () {
-            function BestelformulierController() {
+            function BestelformulierController(mandjeService, $location) {
+                this.mandjeService = mandjeService;
+                this.$location = $location;
                 //velden
                 this.titel = "Bestelformulier";
                 this.producten = [
@@ -19,7 +21,6 @@ var qnh;
                     { id: 9, naam: "Viscount Unico 500 Konkav", hoofdmenu: "Keyboards", submenu: "Orgels", prijs: 30111, afbeelding: "viscount_unico_500_konkav.jpg" }
                 ];
                 this.hoofdmenu = [];
-                this.mandje = [];
             }
             BestelformulierController.prototype.selecteerHoofdmenu = function (menu) {
                 this.geselecteerdHoofdmenu = menu;
@@ -29,31 +30,36 @@ var qnh;
                 this.geselecteerdSubmenu = menu;
             };
             BestelformulierController.prototype.verlaag = function (productnaam) {
-                for (var i = 0; i < this.mandje.length; i++) {
-                    if (this.mandje[i].naam === productnaam) {
-                        if (this.mandje[i].aantal === 1) {
-                            this.mandje.splice(i, 1);
+                for (var i = 0; i < this.mandjeService.mandje.length; i++) {
+                    if (this.mandjeService.mandje[i].naam === productnaam) {
+                        if (this.mandjeService.mandje[i].aantal === 1) {
+                            this.mandjeService.mandje.splice(i, 1);
                         }
                         else {
-                            this.mandje[i].aantal -= 1;
+                            this.mandjeService.mandje[i].aantal -= 1;
                         }
                     }
                 }
+                this.mandjeService.updateTotaal();
             };
             BestelformulierController.prototype.verhoog = function (productnaam) {
-                for (var i = 0; i < this.mandje.length; i++) {
-                    if (this.mandje[i].naam === productnaam) {
-                        this.mandje[i].aantal += 1;
-                        return;
+                var exists = false;
+                for (var i = 0; i < this.mandjeService.mandje.length; i++) {
+                    if (this.mandjeService.mandje[i].naam === productnaam) {
+                        this.mandjeService.mandje[i].aantal += 1;
+                        exists = true;
+                        break;
                     }
                 }
-                for (var j = 0; j < this.producten.length; j++) {
-                    if (this.producten[j].naam === productnaam) {
-                        this.mandje.push({ id: this.producten[j].id, naam: this.producten[j].naam, prijs: this.producten[j].prijs, aantal: 1 });
-                        //$apply();
-                        return;
+                if (!exists) {
+                    for (var j = 0; j < this.producten.length; j++) {
+                        if (this.producten[j].naam === productnaam) {
+                            this.mandjeService.mandje.push({ id: this.producten[j].id, naam: this.producten[j].naam, prijs: this.producten[j].prijs, afbeelding: this.producten[j].afbeelding, aantal: 1 });
+                            break;
+                        }
                     }
                 }
+                this.mandjeService.updateTotaal();
             };
             return BestelformulierController;
         })();

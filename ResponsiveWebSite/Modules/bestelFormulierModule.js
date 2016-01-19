@@ -1,10 +1,13 @@
 var app = angular.module('BestelformulierApp', ['customFilterModule', 'ngRoute']);
-app.controller('BestelFormulierController', [qnh.Controllers.BestelformulierController]);
-app.controller('NavigationController', ['$location', qnh.Controllers.NavigationController]);
+app.service('MandjeService', qnh.Services.MandjeService);
+app.service('NavigationService', qnh.Services.NavigationService);
+app.controller('NavigationController', ['NavigationService', '$location', qnh.Controllers.NavigationController]);
+app.controller('BestelFormulierController', ['MandjeService', '$location', qnh.Controllers.BestelformulierController]);
 app.directive('viewMandje', qnh.Directives.ViewMandje.factory);
+/*stap 1 in configuratie van #-loze URLS: voeg code voor $locationProvider toe in config, zoals hieronder */
 app.config([
-    '$routeProvider', function ($routeProvider) {
-        var mainController = 'NavigationController as ctrl';
+    '$routeProvider', '$locationProvider', function ($routeProvider, $locationProvider) {
+        var mainController = 'BestelFormulierController as ctrl';
         $routeProvider.when('/', {
             templateUrl: 'partial-views/step01.html',
             controller: mainController
@@ -18,7 +21,8 @@ app.config([
             controller: mainController
         })
             .otherwise({
-            redirectTo: '/nietsGevonden'
+            redirectTo: '/'
         });
+        $locationProvider.html5Mode(true);
     }]);
 //# sourceMappingURL=bestelFormulierModule.js.map
