@@ -881,25 +881,18 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="default.aspx" />
     <Content Include="default.css" />
     <Content Include="nslogo.png" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="default.aspx.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="default.aspx.designer.cs">
-      <DependentUpon>default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Controllers\bestelFormulierController.ts" />
     <TypeScriptCompile Include="Controllers\navigationController.ts" />
     <TypeScriptCompile Include="Directives\mandjeDirective.ts" />
+    <TypeScriptCompile Include="Models\ProductModel.ts" />
     <TypeScriptCompile Include="Modules\bestelFormulierModule.ts" />
     <TypeScriptCompile Include="scripts\test.ts" />
     <TypeScriptCompile Include="scripts\typings\angularjs\angular-animate.d.ts" />
@@ -914,6 +907,7 @@
     <TypeScriptCompile Include="scripts\typings\jquery\jquery.d.ts" />
     <TypeScriptCompile Include="Services\mandjeService.ts" />
     <TypeScriptCompile Include="Services\navigationService.ts" />
+    <TypeScriptCompile Include="Services\productenService.ts" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
